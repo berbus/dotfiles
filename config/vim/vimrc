@@ -1,0 +1,183 @@
+" Autoinstall vimplug
+if empty(glob('~/.vim/autoload/plug.vim'))
+  silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
+    \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+  autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
+endif
+
+
+" Plugins
+call plug#begin('~/.config/plugged')
+Plug 'nvie/vim-flake8'
+Plug 'tpope/vim-sensible'
+Plug 'itchyny/lightline.vim'
+Plug 'tpope/vim-surround'
+Plug 'tpope/vim-commentary'
+Plug 'haya14busa/incsearch.vim'
+Plug 'w0rp/ale'
+Plug 'preservim/nerdtree'
+Plug 'morhetz/gruvbox'
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+Plug 'junegunn/fzf.vim'
+Plug 'Glench/Vim-Jinja2-Syntax'
+Plug 'posva/vim-vue'
+call plug#end()
+
+" Editor
+syntax enable
+set encoding=utf-8
+set tabstop=4
+set softtabstop=4
+set shiftwidth=4
+set noexpandtab
+set number
+set relativenumber
+set splitbelow
+set splitright
+set clipboard=unnamedplus
+
+
+" Language specific editor configuration
+autocmd Filetype html setlocal ts=2 sts=2 sw=2 expandtab
+autocmd Filetype css setlocal ts=2 sts=2 sw=2 expandtab
+autocmd Filetype javascript setlocal ts=4 sts=4 sw=4 expandtab
+autocmd Filetype vue setlocal ts=4 sts=4 sw=4 expandtab
+
+
+" Shortcuts
+" [Normal]
+nnoremap Y y$
+noremap <silent> <C-S> :update<CR>
+nnoremap <C-h> <C-w>h
+nnoremap <C-j> <C-w>j
+nnoremap <C-k> <C-w>k
+nnoremap <C-l> <C-w>l
+nnoremap <S-l> :tabnext<CR>
+nnoremap <S-h> :tabprev<CR>
+nnoremap <S-w> :tabclose<CR>
+nnoremap <C-p> :Files<CR>
+nnoremap <C-t> :FZF<CR>
+
+" [Insert]
+inoremap <silent> <C-S> <C-O>:update<CR>
+
+" [Visual]
+vnoremap <silent> <C-S> <C-C>:update<CR>
+
+
+" Custom commands
+:command -bang Q quit<bang>
+:command -bang W write<bang>
+
+
+" Search highlight: Hightlights searches until you enter insert mode and
+" restores the when you leave it. Press scape twice to remove highlights.
+:set hlsearch
+nnoremap <esc><esc> :noh<return>
+autocmd InsertEnter * :set nohlsearch
+autocmd InsertLeave * :set hlsearch
+
+
+" Theme
+colorscheme gruvbox
+set background=dark
+hi Normal guibg=NONE ctermbg=NONE
+set termguicolors
+
+
+" Linter
+let g:ale_linters = {
+\	'python': ['flake8'],
+\}
+let g:ale_fix_on_save = 1
+
+
+" Ignore case if all lowercase
+set ignorecase
+set smartcase
+
+
+" Toggle NERDTree with ctrl+n
+map <C-n> :NERDTreeToggle<CR>
+
+
+" Close vim if the only window open is NERDTree
+autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
+
+
+" Hide help
+let NERDTreeMinimalUI = 1
+set guifont=Inconsolata:h11:cANSI:qDRAFT
+
+
+" Lightline config
+let g:lightline = { 
+	\ 'colorscheme': 'gruvbox', 
+	\ 'component' : { 'filename' : '%F', },
+	\ 'active': {
+	\	'right': [ [ 'lineinfo' ],
+	\				[ 'percent' ],
+	\				[ 'filetype' ] ]
+	\			},
+	\ }
+
+
+
+" Functions
+function SQLup()
+	let l = 1
+    for line in getline(1,"$")
+		let new_val = getline(l)
+        let new_val = substitute(new_val, 'select ', 'SELECT ', "gi")
+        let new_val = substitute(new_val, ' from ', ' FROM ', "gi")
+        let new_val = substitute(new_val, ' where ', ' WHERE ', "gi")
+        let new_val = substitute(new_val, ' as ', ' AS ', "gi")
+        let new_val = substitute(new_val, ' count(', ' COUNT(', "gi")
+        let new_val = substitute(new_val, ' interval ', ' INTERVAL ', "gi")
+        let new_val = substitute(new_val, ' group by ', ' GROUP BY ', "gi")
+        let new_val = substitute(new_val, ' order by ', ' ORDER BY ', "gi")
+        let new_val = substitute(new_val, ' desc ', ' DESC ', "gi")
+        let new_val = substitute(new_val, ' desc;', ' DESC;', "gi")
+        let new_val = substitute(new_val, ' asc', ' ASC', "gi")
+        let new_val = substitute(new_val, ' is ', ' IS ', "gi")
+        let new_val = substitute(new_val, ' on ', ' ON ', "gi")
+        let new_val = substitute(new_val, ' null', ' NULL', "gi")
+	let new_val = substitute(new_val, ' not ', ' NOT ', "gi")
+        let new_val = substitute(new_val, ' and ', ' AND ', "gi")
+        let new_val = substitute(new_val, ' or ', ' OR ', "gi")
+        let new_val = substitute(new_val, ' join ', ' JOIN ', "gi")
+        let new_val = substitute(new_val, ' inner ', ' INNER ', "gi")
+        let new_val = substitute(new_val, ' outer ', ' OUTER ', "gi")
+        let new_val = substitute(new_val, ' left ', ' LEFT ', "gi")
+        let new_val = substitute(new_val, ' right ', ' RIGHT ', "gi")
+        let new_val = substitute(new_val, ' date(', ' DATE(', "gi")
+        let new_val = substitute(new_val, ' date_sub(', ' DATE_SUB(', "gi")
+        let new_val = substitute(new_val, ' day', ' DAY', "gi")
+        let new_val = substitute(new_val, ' month', ' MONTH', "gi")
+        let new_val = substitute(new_val, ' year', ' YEAR', "gi")
+        let new_val = substitute(new_val, 'now()', 'NOW()', "gi")
+        let new_val = substitute(new_val, ' limit ', ' LIMIT ', "gi")
+        let new_val = substitute(new_val, 'create index', 'CREATE INDEX', "gi")
+        let new_val = substitute(new_val, ' concat(', ' CONCAT(', "gi")
+        let new_val = substitute(new_val, ' group_concat(', ' GROUP_CONCAT(', "gi")
+        let new_val = substitute(new_val, ' ifnull(', ' IFNULL(', "gi")
+        let new_val = substitute(new_val, 'distinct', 'DISTINCT', "gi")
+        let new_val = substitute(new_val, ' int ', ' INT ', "gi")
+        let new_val = substitute(new_val, ' tinyint ', ' TINYINT ', "gi")
+        let new_val = substitute(new_val, ' references ', ' REFERENCES ', "gi")
+        let new_val = substitute(new_val, ' primary key ', ' PRIMARY KEY', "gi")
+        let new_val = substitute(new_val, ' primary key(', ' PRIMARY KEY(', "gi")
+        let new_val = substitute(new_val, ' foreign key ', ' FOREIGN KEY ', "gi")
+        let new_val = substitute(new_val, ' foreign key(', ' FOREIGN KEY(', "gi")
+	call setline(l, new_val)
+        let l = l + 1
+    endfor
+endfunction
+
+:command SQLup :call SQLup()
+
+
+" MAC specific config
+if has('mac')
+	set clipboard=unnamed
+endif
