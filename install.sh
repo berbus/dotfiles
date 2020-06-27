@@ -2,6 +2,7 @@
 
 packages=(
 	"flake8"
+	"grc"
 	"python3-pip"
 	"tmux"
 	"tree"
