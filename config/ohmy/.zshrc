@@ -110,7 +110,7 @@ plugins=(
 	pip
 	python
 	plugged
-	ab
+	z
 )
 
 export ZSH_DISABLE_COMPFIX="true"
