@@ -1,5 +1,11 @@
 #!/usr/bin/env bash
 
+setup_dirs () {
+	mkdir -p ~/.config
+	mkdir -p ~/.logs
+	mkdir -p ~/.z
+}
+
 setup_vim () {
 	rm -f ~/.vimrc
 	ln -s /etc/dotfiles/config/vim/vimrc ~/.vimrc
@@ -33,6 +39,7 @@ setup_flake8 () {
 	ln -s /etc/dotfiles/config/flake8/flake8 $HOME/.config/flake8
 }
 
+setup_dirs
 setup_vim
 setup_termite
 setup_tmux
