@@ -24,6 +24,7 @@ packages_arch=(
 )
 
 packages_deb=(
+	"curl"
 	"fonts-font-awesome"
 )
 
