@@ -30,7 +30,9 @@ setup_termite () {
 
 setup_tmux () {
 	rm -f /etc/tmux.conf
+	rm -f /etc/tmux_remote.conf
 	ln -s /etc/dotfiles/config/tmux/tmux.conf /etc/
+	ln -s /etc/dotfiles/config/tmux/tmux_remote.conf /etc/
 }
 
 setup_flake8 () {
