@@ -125,6 +125,7 @@ let g:lightline = {
 
 " Functions
 function SQLup()
+	" Uppercase some SQL keywords
 	let l = 1
     for line in getline(1,"$")
 		let new_val = getline(l)
@@ -174,10 +175,26 @@ function SQLup()
     endfor
 endfunction
 
-:command SQLup :call SQLup()
+function Yapf()
+	" Call to yapf on the entire file preserving current cursor
+	let l:winview = winsaveview()
+	keepjumps 0,$!yapf
+	call winrestview(l:winview)
+endfunction
 
+:command SQLup :call SQLup()
+:command Yapf  :call Yapf()
+
+" Call yapf every time a python file is saved
+autocmd BufWritePre *.py call Yapf()
 
 " MAC specific config
 if has('mac')
 	set clipboard=unnamed
 endif
+
+" Return to last edit position when opening files
+autocmd BufReadPost *
+     \ if line("'\"") > 0 && line("'\"") <= line("$") |
+     \   exe "normal! g`\"" |
+     \ endif

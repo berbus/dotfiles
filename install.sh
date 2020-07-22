@@ -31,6 +31,7 @@ packages_deb=(
 python_deps=(
 	"flake8"
 	"requests"
+	"yapf"
 )
 
 install_fzf () {
