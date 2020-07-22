@@ -10,6 +10,7 @@ alias nmap="grc nmap"
 alias vpn="sudo openvpn /home/berbus/Documents/berbus.ovpn"
 alias gcm="git commit -m"
 alias venv="source venv/bin/activate"
+alias tree="tree -I '*pycache*'"
 
 function ox509_der ()
 {
