@@ -21,6 +21,7 @@ Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 Plug 'Glench/Vim-Jinja2-Syntax'
 Plug 'posva/vim-vue'
+Plug 'davidhalter/jedi-vim'
 call plug#end()
 
 " Editor
