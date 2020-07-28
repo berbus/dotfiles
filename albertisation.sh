@@ -41,9 +41,16 @@ setup_flake8 () {
 	ln -s /etc/dotfiles/config/flake8/flake8 $HOME/.config/flake8
 }
 
+setup_yapf () {
+	rm -rf $HOME/.config/yapf
+	mkdir -p $HOME/.config/yapf
+	ln -s /etc/dotfiles/config/yapf/style $HOME/.config/yapf/style
+}
+
 setup_dirs
 setup_vim
 setup_termite
 setup_tmux
 setup_flake8
+setup_yapf
 setup_ohmyzsh

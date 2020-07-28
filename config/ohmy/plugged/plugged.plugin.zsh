@@ -9,6 +9,7 @@ alias nmap="grc nmap"
 alias vpn="sudo openvpn /home/berbus/Documents/berbus.ovpn"
 alias gcm="git commit -m"
 alias venv="source venv/bin/activate"
+alias tree="tree -I '*pycache*'"
 
 if [ -n "$SSH_CLIENT" ] || [ -n "$SSH_TTY" ]; then
 	alias tmx="tmux -f /etc/tmux_remote.conf new-session -s main"
