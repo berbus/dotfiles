@@ -15,7 +15,6 @@ Plug 'tpope/vim-surround'
 Plug 'tpope/vim-commentary'
 Plug 'haya14busa/incsearch.vim'
 Plug 'w0rp/ale'
-Plug 'preservim/nerdtree'
 Plug 'morhetz/gruvbox'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
@@ -97,19 +96,6 @@ set ignorecase
 set smartcase
 
 
-" Toggle NERDTree with ctrl+n
-map <C-n> :NERDTreeToggle<CR>
-
-
-" Close vim if the only window open is NERDTree
-autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
-
-
-" Hide help
-let NERDTreeMinimalUI = 1
-set guifont=Inconsolata:h11:cANSI:qDRAFT
-
-
 " Lightline config
 let g:lightline = { 
 	\ 'colorscheme': 'gruvbox', 
@@ -175,18 +161,9 @@ function SQLup()
     endfor
 endfunction
 
-function Yapf()
-	" Call to yapf on the entire file preserving current cursor
-	let l:winview = winsaveview()
-	keepjumps 0,$!yapf
-	call winrestview(l:winview)
-endfunction
 
 :command SQLup :call SQLup()
-:command Yapf  :call Yapf()
 
-" Call yapf every time a python file is saved
-autocmd BufWritePre *.py call Yapf()
 
 " MAC specific config
 if has('mac')
