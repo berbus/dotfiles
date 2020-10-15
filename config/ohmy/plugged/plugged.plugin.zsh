@@ -72,3 +72,8 @@ function git_prompt_info() {
 		echo "$ZSH_THEME_GIT_PROMPT_PREFIX${ref}$(parse_git_dirty)$ZSH_THEME_GIT_PROMPT_SUFFIX"
 	fi
 }
+
+function git_identity_setup () {
+	git config --global user.email "$1"
+	git config --global user.name "$2"
+}
