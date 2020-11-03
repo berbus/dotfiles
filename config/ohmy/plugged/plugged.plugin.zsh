@@ -79,7 +79,6 @@ function git_prompt_info() {
 	fi
 }
 
-
 _fzf_compgen_path() {
   fd --hidden --follow --exclude ".git" . "$1"
 }
