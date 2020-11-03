@@ -1,5 +1,11 @@
 #!/usr/bin/env bash
 
+setup_dirs () {
+	mkdir -p ~/.config
+	mkdir -p ~/.logs
+	touch ~/.z
+}
+
 setup_vim () {
 	rm -f ~/.vimrc
 	ln -s /etc/dotfiles/config/vim/vimrc ~/.vimrc
@@ -24,7 +30,9 @@ setup_termite () {
 
 setup_tmux () {
 	rm -f /etc/tmux.conf
+	rm -f /etc/tmux_remote.conf
 	ln -s /etc/dotfiles/config/tmux/tmux.conf /etc/
+	ln -s /etc/dotfiles/config/tmux/tmux_remote.conf /etc/
 }
 
 setup_flake8 () {
@@ -39,6 +47,7 @@ setup_yapf () {
 	ln -s /etc/dotfiles/config/yapf/style $HOME/.config/yapf/style
 }
 
+setup_dirs
 setup_vim
 setup_termite
 setup_tmux
