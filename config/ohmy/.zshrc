@@ -121,3 +121,6 @@ export TERM=xterm-256color
 
 export PROMPT_COMMAND='if [ "$(id -u)" -ne 0 ]; then echo "$(date "+%Y-%m-%d.%H:%M:%S") $(pwd) $(history -1)" >> ~/.logs/zsh-history-$(date "+%Y-%m-%d").log; fi'
 precmd() { eval "$PROMPT_COMMAND" }
+
+export FZF_DEFAULT_COMMAND="fd ."
+export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
