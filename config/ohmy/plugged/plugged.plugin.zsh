@@ -3,14 +3,26 @@ alias python2="python2.7"
 alias pip="pip3"
 alias l="ls -lah"
 alias c="clear"
-alias tmx="tmux new-session -s main"
-alias nmapb="grc nmap -sV -sC -oN nmap_basic.txt -vv "
-alias nmapf="grc nmap -p- -oN nmap_full.txt -vv "
 alias nmap="grc nmap"
 alias vpn="sudo openvpn /home/berbus/Documents/berbus.ovpn"
 alias gcm="git commit -m"
 alias venv="source venv/bin/activate"
 alias tree="tree -I '*pycache*'"
+
+if [ -n "$SSH_CLIENT" ] || [ -n "$SSH_TTY" ]; then
+	alias tmx="tmux -f /etc/tmux_remote.conf new-session -s main"
+	alias tmux="tmux -f /etc/tmux_remote.conf"
+else
+	alias tmx="tmux new-session -s main"
+fi
+
+function nmapb () {
+	grc nmap -sV -sC -oN "nmap_$1.log" -vv "$1"
+}
+
+function nmapf () {
+	grc nmap -p- -oN "nmap_$1_full.log" -vv "$1"
+}
 
 function ox509_der ()
 {
@@ -72,3 +84,7 @@ _fzf_compgen_path() {
   fd --hidden --follow --exclude ".git" . "$1"
 }
 
+function git_identity_setup () {
+	git config user.email "$1"
+	git config user.name "$2"
+}
