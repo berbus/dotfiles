@@ -4,6 +4,7 @@ packages=(
 	"flake8"
 	"grc"
 	"python3-pip"
+	"ripgrep"
 	"tmux"
 	"tree"
 	"vim"
@@ -14,6 +15,7 @@ packages_arch=(
 	"base-devel"
 	"termite"
 	"cmake"
+	"fd"
 	"os-prober"
 	"python3"
 	"ttf-font-awesome"
@@ -25,6 +27,7 @@ packages_arch=(
 
 packages_deb=(
 	"curl"
+	"fd-find"
 	"fonts-font-awesome"
 )
 
@@ -38,6 +41,9 @@ cargo_packages=(
 	"ripgrep"
 	"fd-find"
 )
+packages_macos=(
+	"fd"
+	)
 
 install_fzf () {
 	git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
@@ -49,6 +55,8 @@ install_packages () {
 	apt=$?
 	command -v pacman > /dev/null
 	pacman=$?
+	command -v brew > /dev/null
+	brew=$?
 	if [ $apt -eq 0 ]
 	then
 		apt-get update
@@ -60,6 +68,11 @@ install_packages () {
 	then
 		shellcmd="pacman -S "
 		$shellcmd ${packages_arch[@]}
+	elif [ $pacman -eq 0 ]
+	then
+		# TODO - check if mac
+		shellcmd="brew install "
+		$shellcmd ${packages_macos[@]}
 	else
 		echo "No shell binary found"
 		exit

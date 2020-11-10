@@ -3,7 +3,7 @@
 setup_dirs () {
 	mkdir -p ~/.config
 	mkdir -p ~/.logs
-	mkdir -p ~/.z
+	touch ~/.z
 }
 
 setup_vim () {
