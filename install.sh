@@ -34,6 +34,11 @@ python_deps=(
 	"yapf"
 )
 
+cargo_packages=(
+	"ripgrep"
+	"fd-find"
+)
+
 install_fzf () {
 	git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
 	~/.fzf/install
@@ -50,7 +55,7 @@ install_packages () {
 		shellcmd="apt install "
 		$shellcmd ${packages_deb[@]}
 		source scripts/mint_install_termite.sh
-		source scripts/mint_install_spotify.sh
+		# source scripts/mint_install_spotify.sh
 	elif [ $pacman -eq 0 ]
 	then
 		shellcmd="pacman -S "
@@ -60,6 +65,7 @@ install_packages () {
 		exit
 	fi
 	$shellcmd ${packages[@]}
+	cargo install ${cargo_packages[@]}
 }
 
 set_permissions () {
@@ -70,8 +76,13 @@ install_python_deps () {
 	pip3 install ${python_deps[@]} --user
 }
 
+setup_rust () {
+	curl https://sh.rustup.rs -sSf | sh
+}
+
 
 set_permissions
+setup_rust
 install_packages
 install_python_deps
 install_fzf
