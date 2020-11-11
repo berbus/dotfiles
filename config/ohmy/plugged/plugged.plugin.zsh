@@ -79,6 +79,14 @@ function git_prompt_info() {
 	fi
 }
 
+function host_prompt_info() {
+	aux_prompt=$(hostname)
+	if [[ ${#aux_prompt} -gt 8 ]]; then
+		aux_prompt="${aux_prompt:0:5}..${aux_prompt:(-5)}"
+	fi
+	echo $aux_prompt
+}
+
 _fzf_compgen_path() {
   fd --hidden --follow --exclude ".git" . "$1"
 }
