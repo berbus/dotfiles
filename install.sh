@@ -37,6 +37,10 @@ python_deps=(
 	"yapf"
 )
 
+cargo_packages=(
+	"ripgrep"
+	"fd-find"
+)
 packages_macos=(
 	"fd"
 	)
@@ -59,13 +63,14 @@ install_packages () {
 		shellcmd="apt install "
 		$shellcmd ${packages_deb[@]}
 		source scripts/mint_install_termite.sh
-		source scripts/mint_install_spotify.sh
+		# source scripts/mint_install_spotify.sh
 	elif [ $pacman -eq 0 ]
 	then
 		shellcmd="pacman -S "
 		$shellcmd ${packages_arch[@]}
 	elif [ $pacman -eq 0 ]
 	then
+		# TODO - check if mac
 		shellcmd="brew install "
 		$shellcmd ${packages_macos[@]}
 	else
@@ -73,6 +78,7 @@ install_packages () {
 		exit
 	fi
 	$shellcmd ${packages[@]}
+	cargo install ${cargo_packages[@]}
 }
 
 set_permissions () {
@@ -83,8 +89,13 @@ install_python_deps () {
 	pip3 install ${python_deps[@]} --user
 }
 
+setup_rust () {
+	curl https://sh.rustup.rs -sSf | sh
+}
+
 
 set_permissions
+setup_rust
 install_packages
 install_python_deps
 install_fzf
