@@ -20,8 +20,8 @@ Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 Plug 'Glench/Vim-Jinja2-Syntax'
 Plug 'posva/vim-vue'
-Plug 'davidhalter/jedi-vim'
 call plug#end()
+
 
 " Editor
 syntax enable
@@ -35,6 +35,8 @@ set relativenumber
 set splitbelow
 set splitright
 set clipboard=unnamedplus
+set shortmess-=S	" Show count while searching
+set cursorline	" Highlight current line
 
 
 " Language specific editor configuration
@@ -176,3 +178,9 @@ autocmd BufReadPost *
      \ if line("'\"") > 0 && line("'\"") <= line("$") |
      \   exe "normal! g`\"" |
      \ endif
+
+
+" Yapf
+setlocal equalprg=yapf
+autocmd FileType python nnoremap <leader>y :0,$!yapf<Cr><C-o>
+
