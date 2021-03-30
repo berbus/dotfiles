@@ -10,7 +10,7 @@ endif
 call plug#begin('~/.config/plugged')
 Plug 'nvie/vim-flake8'
 Plug 'tpope/vim-sensible'
-Plug 'itchyny/lightline.vim'
+Plug 'vim-airline/vim-airline'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-commentary'
 Plug 'haya14busa/incsearch.vim'
@@ -20,6 +20,7 @@ Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 Plug 'Glench/Vim-Jinja2-Syntax'
 Plug 'posva/vim-vue'
+Plug 'vim-airline/vim-airline-themes'
 call plug#end()
 
 
@@ -85,7 +86,8 @@ colorscheme gruvbox
 set background=dark
 hi Normal guibg=NONE ctermbg=NONE
 set termguicolors
-
+let g:airline_theme='kolor'
+let g:airline#extensions#tabline#enabled = 1
 
 " Linter
 let g:ale_linters = {
@@ -97,18 +99,6 @@ let g:ale_fix_on_save = 1
 " Ignore case if all lowercase
 set ignorecase
 set smartcase
-
-
-" Lightline config
-let g:lightline = { 
-	\ 'colorscheme': 'gruvbox', 
-	\ 'component' : { 'filename' : '%F', },
-	\ 'active': {
-	\	'right': [ [ 'lineinfo' ],
-	\				[ 'percent' ],
-	\				[ 'filetype' ] ]
-	\			},
-	\ }
 
 
 
